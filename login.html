@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 STAFF WATCH · login</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f0e9e2;
+            background-image: repeating-linear-gradient(45deg, #f3e3dd 0px, #f3e3dd 2px, #f7ede8 2px, #f7ede8 8px);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 251, 245, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 48px;
+            border: 2px solid #ffcece;
+            box-shadow: 20px 20px 0 #b77b7b;
+            padding: 2rem 2rem 2.5rem;
+        }
+        .brand {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .brand h1 {
+            font-size: 2.2rem;
+            color: #4d2f2f;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .brand p {
+            color: #a55e5e;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #4d2f2f;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e7bdbd;
+            border-radius: 40px;
+            font-size: 1rem;
+            background: white;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            border-color: #d74848;
+            outline: none;
+            box-shadow: 0 0 0 3px #ffcaca;
+        }
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 60px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            background: white;
+            box-shadow: 0 5px 0 #b1a1a1;
+            transition: 0.1s;
+            width: 100%;
+        }
+        .btn-primary {
+            background: #d64545;
+            color: white;
+            box-shadow: 0 6px 0 #742a2a;
+        }
+        .btn-primary:hover {
+            background: #c03535;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #742a2a;
+        }
+        .error-message {
+            background: #ffe1e1;
+            color: #b33;
+            border-radius: 40px;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ffaaaa;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        .demo-hint {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.8rem;
+            background: #ffefd5;
+            padding: 0.8rem;
+            border-radius: 40px;
+            color: #7a4c4c;
+        }
+        .demo-credentials {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .demo-credentials span {
+            background: #f0d5d5;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+        }
+        .quick-demo {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .demo-user-btn {
+            flex: 1;
+            background: #4f9e6a;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            box-shadow: 0 3px 0 #2b6d3b;
+        }
+        .demo-boss-btn {
+            flex: 1;
+            background: #b24b4b;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            box-shadow: 0 3px 0 #742a2a;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="brand">
+            <h1>⚠️ STAFF WATCH</h1>
+            <p>sign in · automatic role detection</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label><i class="fas fa-user" style="margin-right:6px;"></i> Username</label>
+                <input type="text" id="username" class="form-control" placeholder="enter username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Sign in
+            </button>
+        </form>
+
+        <div class="quick-demo">
+            <button class="demo-user-btn" id="demoUserBtn"><i class="fas fa-user"></i> Demo User</button>
+            <button class="demo-boss-btn" id="demoBossBtn"><i class="fas fa-crown"></i> Demo Boss</button>
+        </div>
+
+        <div class="demo-hint">
+            <i class="fas fa-info-circle"></i> Test credentials<br>
+            <div class="demo-credentials">
+                <span>👤 user / user123</span>
+                <span>👑 boss / boss123</span>
+                <span>👤 demo / demo</span>
+                <span>👑 megan / hr123</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // User database with roles
+            const USERS_KEY = 'staffwatch_users';
+            
+            // Default users with roles
+            let users = JSON.parse(localStorage.getItem(USERS_KEY)) || [
+                { username: 'demo', password: 'demo', role: 'user' },
+                { username: 'user', password: 'user123', role: 'user' },
+                { username: 'chris', password: 'staff', role: 'user' },
+                { username: 'boss', password: 'boss123', role: 'boss' },
+                { username: 'megan', password: 'hr123', role: 'boss' },
+                { username: 'derek', password: 'supervisor', role: 'boss' },
+                { username: 'lisa', password: 'chief', role: 'boss' }
+            ];
+
+            function saveUsers() {
+                localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            }
+
+            // DOM elements
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const errorMsgDiv = document.getElementById('errorMessage');
+            const demoUserBtn = document.getElementById('demoUserBtn');
+            const demoBossBtn = document.getElementById('demoBossBtn');
+
+            function showError(msg) {
+                errorMsgDiv.textContent = msg;
+                errorMsgDiv.classList.add('show');
+            }
+
+            function clearError() {
+                errorMsgDiv.classList.remove('show');
+            }
+
+            // Login function - automatically detects role
+            function attemptLogin(username, password) {
+                // Find user (case insensitive)
+                const user = users.find(u => 
+                    u.username.toLowerCase() === username.toLowerCase() && 
+                    u.password === password
+                );
+
+                if (!user) {
+                    showError('Invalid username or password');
+                    return false;
+                }
+
+                // Success - set session and redirect based on role
+                localStorage.setItem('staffwatch_session', user.username);
+                localStorage.setItem('staffwatch_user_role', user.role);
+                
+                // Redirect based on role
+                if (user.role === 'boss') {
+                    window.location.href = 'boss.html';
+                } else {
+                    window.location.href = 'user.html';
+                }
+                
+                return true;
+            }
+
+            // Login form submit
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                clearError();
+                
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (!username || !password) {
+                    showError('Please enter both username and password');
+                    return;
+                }
+
+                attemptLogin(username, password);
+            });
+
+            // Demo User button
+            demoUserBtn.addEventListener('click', () => {
+                usernameInput.value = 'user';
+                passwordInput.value = 'user123';
+                attemptLogin('user', 'user123');
+            });
+
+            // Demo Boss button
+            demoBossBtn.addEventListener('click', () => {
+                usernameInput.value = 'boss';
+                passwordInput.value = 'boss123';
+                attemptLogin('boss', 'boss123');
+            });
+
+            // Check if already logged in
+            const currentUser = localStorage.getItem('staffwatch_session');
+            const currentRole = localStorage.getItem('staffwatch_user_role');
+            
+            if (currentUser && currentRole) {
+                // Auto-redirect to appropriate page
+                if (currentRole === 'boss') {
+                    window.location.href = 'boss.html';
+                } else {
+                    window.location.href = 'user.html';
+                }
+            }
+
+            // Save users if needed
+            saveUsers();
+        })();
+    </script>
+</body>
+</html>

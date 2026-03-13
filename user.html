@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👤 STAFF WATCH · user</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f0e9e2;
+            background-image: repeating-linear-gradient(45deg, #f3e3dd 0px, #f3e3dd 2px, #f7ede8 2px, #f7ede8 8px);
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .user-panel {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 251, 245, 0.9);
+            border-radius: 32px;
+            border: 2px solid #ffcece;
+            box-shadow: 12px 12px 0 #b77b7b;
+            padding: 1.5rem;
+        }
+        .top-bar {
+            background: #2d1f1f;
+            border-radius: 60px;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .staff-badge {
+            background: #ffdbb5;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2f1d0e;
+            border: 2px solid #ffb0b0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .staff-badge i { color: #c54545; }
+        
+        .staff-controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .staff-btn {
+            background: #4f3636;
+            border: none;
+            color: #ffcdb0;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #a16565;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        .staff-btn:hover { background: #6d4949; color: white; }
+        
+        .user-section {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .username {
+            color: #ffbaba;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 4px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .logout-btn {
+            background: #543a3a;
+            color: #ffc6c6;
+            border: 1px solid #a16565;
+            border-radius: 30px;
+            padding: 0.4rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 3px;
+            background: #3f2b2b;
+            padding: 0.2rem;
+            border-radius: 30px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #dbb;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .lang-btn.active { background: #d64545; color: white; }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr 1.3fr;
+            gap: 1.2rem;
+        }
+        .card {
+            background: rgba(255, 251, 245, 0.9);
+            border-radius: 24px;
+            padding: 1.2rem;
+            border: 2px solid #ffcece;
+            box-shadow: 6px 6px 0 #b77b7b;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4d2f2f;
+            border-bottom: 2px dotted #e7a5a5;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .timeline { 
+            max-height: 500px; 
+            overflow-y: auto; 
+            padding-right: 5px;
+        }
+        
+        .report-entry {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ffb4b4;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .report-entry:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #d64545;
+        }
+        .report-entry.selected {
+            border: 3px solid #d64545;
+            background: #fff5f5;
+        }
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .reporter {
+            background: #ffefef;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .bad-staff-name {
+            background: #3f2828;
+            color: #ffbaba;
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        .report-desc {
+            margin: 0.5rem 0;
+            border-left: 4px solid #ffa4a4;
+            padding-left: 0.8rem;
+            font-size: 0.95rem;
+        }
+        
+        .reply-thread {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background: #f9f9f9;
+            border-radius: 12px;
+            border-left: 3px solid #00a884;
+        }
+        .reply-item {
+            padding: 0.5rem;
+            margin: 0.3rem 0;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+        }
+        .reply-author {
+            font-weight: 600;
+            color: #00a884;
+        }
+        .reply-text {
+            flex: 1;
+            margin-left: 0.5rem;
+        }
+        .reply-time {
+            font-size: 0.7rem;
+            color: #999;
+            margin-left: 0.5rem;
+        }
+        .reply-actions {
+            display: flex;
+            gap: 0.3rem;
+        }
+        .reply-action-btn {
+            background: none;
+            border: none;
+            color: #54656f;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+        }
+        .reply-action-btn:hover {
+            background: #e4e6eb;
+        }
+        
+        .boss-list {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .boss-item {
+            flex: 1;
+            background: #ffeae3;
+            padding: 0.5rem;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .boss-item:hover {
+            background: #ffdbd1;
+            transform: translateY(-2px);
+        }
+        .boss-item.selected {
+            border-color: #d64545;
+            background: #ffd0c4;
+        }
+        .boss-avatar {
+            width: 30px;
+            height: 30px;
+            background: #ac6f6f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 0.3rem;
+        }
+        
+        .chat-container {
+            background: #efeae2;
+            border-radius: 16px;
+            padding: 1rem;
+            max-height: 350px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .encryption-banner {
+            background: #fcf5eb;
+            border-radius: 30px;
+            padding: 0.6rem 1rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #667781;
+            border: 1px solid #e1e9f0;
+        }
+        
+        .date-separator {
+            text-align: center;
+            margin: 0.3rem 0;
+        }
+        .date-separator span {
+            background: #e1f0fa;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #3b4a54;
+        }
+        
+        .conversation-title {
+            background: #f0e0d0;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #4d2f2f;
+            border: 1px solid #ffb5b5;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .message-wrapper {
+            display: flex;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        
+        .message-wrapper.boss-message {
+            justify-content: flex-start;
+        }
+        .message-wrapper.boss-message .message-bubble {
+            background: #ffffff;
+            border-radius: 0 12px 12px 12px;
+            padding: 0.6rem 1rem;
+            max-width: 80%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+        }
+        .message-wrapper.boss-message .message-bubble:hover {
+            background: #f5f5f5;
+        }
+        
+        .message-wrapper.user-message {
+            justify-content: flex-end;
+        }
+        .message-wrapper.user-message .message-bubble {
+            background: #dcf8c6;
+            border-radius: 12px 0 12px 12px;
+            padding: 0.6rem 1rem;
+            max-width: 80%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+        }
+        .message-wrapper.user-message .message-bubble:hover {
+            background: #c8e6b0;
+        }
+        
+        .message-sender {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #00a884;
+            margin-bottom: 2px;
+        }
+        .message-time {
+            font-size: 0.6rem;
+            color: #667781;
+            text-align: right;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 3px;
+        }
+        .message-time i { color: #53bdeb; }
+        
+        .message-actions {
+            opacity: 0;
+            transition: opacity 0.2s;
+            position: absolute;
+            top: -15px;
+            right: 5px;
+            background: white;
+            border-radius: 20px;
+            padding: 2px 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 2px;
+            pointer-events: none;
+        }
+        .message-bubble:hover .message-actions {
+            opacity: 1;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: #54656f;
+            pointer-events: auto;
+        }
+        .action-btn:hover { background: #f0f2f5; }
+        
+        .chat-input-area {
+            margin-top: 1rem;
+            background: white;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            border: 2px solid #e7bdbd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-input-area textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.3rem 0;
+            resize: none;
+            font-size: 0.9rem;
+            background: transparent;
+            max-height: 80px;
+        }
+        .chat-input-actions button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #54656f;
+        }
+        .shortcut-hint {
+            font-size: 0.65rem;
+            color: #8696a0;
+            margin-top: 3px;
+            text-align: right;
+        }
+        
+        .form-group { margin-bottom: 0.8rem; }
+        .form-group label {
+            font-weight: 600;
+            color: #4d2f2f;
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 0.85rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 2px solid #e7bdbd;
+            border-radius: 30px;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .btn {
+            background: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #b1a1a1;
+            transition: all 0.1s;
+        }
+        .btn-primary { background: #d64545; color: white; box-shadow: 0 3px 0 #742a2a; }
+        .btn-primary:hover { background: #c03535; transform: translateY(-1px); box-shadow: 0 4px 0 #742a2a; }
+        
+        .footer-stats {
+            margin-top: 1.5rem;
+            background: #f6e5db;
+            border-radius: 60px;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+        
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); align-items: center; justify-content: center;
+        }
+        .modal.show { display: flex; }
+        .modal-card {
+            background: #fff9f0; max-width: 450px; width: 90%; border-radius: 32px;
+            border: 2px solid #ff9f9f; padding: 1.5rem;
+            animation: slideUp 0.2s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            font-size: 1.2rem; font-weight: 600; color: #4d2f2f;
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+        }
+        .modal-close {
+            margin-left: auto; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #b77b7b;
+        }
+        .modal-close:hover { color: #d64545; }
+        .modal-body { margin-bottom: 1.5rem; }
+        .modal-footer { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-btn { padding: 0.6rem 1.5rem; border-radius: 30px; font-weight: 600; border: none; cursor: pointer; }
+        .modal-btn-primary { background: #d64545; color: white; }
+        .modal-btn-secondary { background: #e4e6eb; color: #3b4a54; }
+        .shortcut-hint-modal {
+            font-size: 0.7rem;
+            color: #8696a0;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="user-panel">
+    <div class="top-bar">
+        <div class="staff-controls">
+            <span class="staff-badge"><i class="fas fa-user-tag"></i> <span id="currentStaffDisplay">Gary Grump</span></span>
+            <button class="staff-btn" id="renameStaffBtn"><i class="fas fa-edit"></i> Rename</button>
+            <button class="staff-btn" id="resetStaffBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+        </div>
+        <div class="user-section">
+            <span class="username"><i class="fas fa-user-circle"></i> <span id="welcomeUser"></span> <span class="online-indicator"></span></span>
+            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <div class="lang-switcher">
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">PT</button>
+                <button class="lang-btn">ES</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <!-- LEFT: Reports -->
+        <div class="col">
+            <div class="card">
+                <div class="card-header"><i class="fas fa-list"></i> Staff Reports <span style="margin-left:auto; font-size:0.8rem; background:#ffefef; padding:0.2rem 0.8rem; border-radius:30px;" id="reportCount">0</span></div>
+                <div id="timelineContainer" class="timeline"></div>
+            </div>
+        </div>
+
+        <!-- MIDDLE: New Report -->
+        <div class="col">
+            <div class="card">
+                <div class="card-header"><i class="fas fa-pen"></i> New Report</div>
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label>Your name</label>
+                        <input type="text" id="reporterName" class="form-control" value="Anonymous">
+                    </div>
+                    <div class="form-group">
+                        <label>Bad staff name</label>
+                        <input type="text" id="badStaffNameInput" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="reportCategory" class="form-control">
+                            <option>Harassment</option>
+                            <option>Laziness</option>
+                            <option>Rude</option>
+                            <option>Sabotage</option>
+                            <option>Theft</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="reportDesc" class="form-control" rows="3" required placeholder="Describe what happened..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Post Report</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT: Chat -->
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-comments"></i> <span id="currentChatTitle">Chat</span>
+                </div>
+                
+                <!-- Boss selection -->
+                <div class="boss-list">
+                    <div class="boss-item selected" data-boss="hr" id="bossHr">
+                        <div class="boss-avatar">MJ</div>
+                        <div>Megan</div>
+                    </div>
+                    <div class="boss-item" data-boss="supervisor" id="bossSupervisor">
+                        <div class="boss-avatar">DT</div>
+                        <div>Derek</div>
+                    </div>
+                    <div class="boss-item" data-boss="chief" id="bossChief">
+                        <div class="boss-avatar">LC</div>
+                        <div>Lisa</div>
+                    </div>
+                </div>
+                
+                <!-- Conversation title/topic -->
+                <div id="conversationTopic" class="conversation-title">
+                    Select a conversation
+                </div>
+                
+                <div id="messageThread" class="chat-container"></div>
+                
+                <div class="chat-input-area">
+                    <textarea id="messageInput" rows="1" placeholder="Type a message..."></textarea>
+                    <div class="chat-input-actions">
+                        <button id="sendMessageBtn" title="Send (Ctrl+Enter)"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                <div class="shortcut-hint">
+                    <i class="fas fa-keyboard"></i> Ctrl+Enter to send
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-stats">
+        <span><i class="fas fa-database"></i> <span id="storageStats">0 reports, 0 messages</span></span>
+        <span><i class="fas fa-bullhorn"></i> <span id="broadcastIndicator"></span></span>
+        <span><i class="fas fa-user-secret"></i> Bad staff: <span id="footerBadStaff">chris</span></span>
+    </div>
+</div>
+
+<!-- Reply Modal -->
+<div id="replyModal" class="modal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <i class="fas fa-reply" style="color:#00a884;"></i> Reply
+            <button class="modal-close" id="closeReplyModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="replyInfo" style="background:#f0f2f5; padding:0.8rem; border-radius:12px; margin-bottom:1rem; font-size:0.85rem; border-left:4px solid #00a884;"></div>
+            <textarea id="replyText" class="form-control" rows="3" placeholder="Your reply..." autofocus></textarea>
+            <div class="shortcut-hint-modal">
+                <i class="fas fa-keyboard"></i> Ctrl+Enter to send · Esc to close
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn modal-btn-secondary" id="cancelReplyBtn">Cancel (Esc)</button>
+            <button class="modal-btn modal-btn-primary" id="submitReplyBtn">Send (Ctrl+Enter)</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Check login
+    const currentUser = localStorage.getItem('staffwatch_session');
+    const userRole = localStorage.getItem('staffwatch_user_role');
+    
+    if (!currentUser) { window.location.href = 'login.html'; return; }
+    if (userRole !== 'user') { window.location.href = 'boss.html'; return; }
+
+    // Data keys
+    const REPORTS_KEY = 'badstaff_reports';
+    const MESSAGES_KEY = 'badstaff_messages';
+    const STAFF_NAME_KEY = 'badstaff_currentName';
+    const ACTIVE_CHAT_KEY = 'staffwatch_active_chat';
+
+    // Default data
+    let reports = JSON.parse(localStorage.getItem(REPORTS_KEY)) || [
+        { 
+            id: '1', 
+            reporter: 'brunno', 
+            staffName: 'chris', 
+            description: 'fuckin', 
+            timestamp: Date.now() - 7200000,
+            replies: []
+        },
+        { 
+            id: '2', 
+            reporter: 'Anonymous', 
+            staffName: 'chris', 
+            description: 'c\'c\'c\'', 
+            timestamp: Date.now() - 18000000,
+            replies: []
+        },
+        { 
+            id: '3', 
+            reporter: 'alex', 
+            staffName: 'chris', 
+            description: 'he\'s been sabotagin me', 
+            timestamp: Date.now() - 3600000,
+            replies: []
+        }
+    ];
+
+    let messages = JSON.parse(localStorage.getItem(MESSAGES_KEY)) || [
+        { id: 'm1', reportId: '1', boss: 'hr', content: 'hi sir', sender: 'user', timestamp: Date.now() - 7200000, read: true },
+        { id: 'm2', reportId: '1', boss: 'hr', content: 'mornin', sender: 'boss', timestamp: Date.now() - 7150000, read: false }
+    ];
+
+    let currentStaff = localStorage.getItem(STAFF_NAME_KEY) || 'chris';
+    let selectedChat = JSON.parse(localStorage.getItem(ACTIVE_CHAT_KEY)) || { type: 'report', id: '1' };
+
+    // DOM elements
+    const timelineDiv = document.getElementById('timelineContainer');
+    const chatDiv = document.getElementById('messageThread');
+    const chatTitle = document.getElementById('currentChatTitle');
+    const conversationTopic = document.getElementById('conversationTopic');
+    const messageInput = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendMessageBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const welcomeUser = document.getElementById('welcomeUser');
+    const currentStaffDisplay = document.getElementById('currentStaffDisplay');
+    const badStaffNameInput = document.getElementById('badStaffNameInput');
+    const renameBtn = document.getElementById('renameStaffBtn');
+    const resetBtn = document.getElementById('resetStaffBtn');
+    const bossHr = document.getElementById('bossHr');
+    const bossSupervisor = document.getElementById('bossSupervisor');
+    const bossChief = document.getElementById('bossChief');
+    const storageStats = document.getElementById('storageStats');
+    const broadcastIndicator = document.getElementById('broadcastIndicator');
+    const footerBadStaff = document.getElementById('footerBadStaff');
+    const reportCountSpan = document.getElementById('reportCount');
+    const reportForm = document.getElementById('reportForm');
+    const reporterName = document.getElementById('reporterName');
+    const reportCategory = document.getElementById('reportCategory');
+    const reportDesc = document.getElementById('reportDesc');
+
+    // Modal elements
+    const replyModal = document.getElementById('replyModal');
+    const closeReplyModal = document.getElementById('closeReplyModal');
+    const cancelReplyBtn = document.getElementById('cancelReplyBtn');
+    const submitReplyBtn = document.getElementById('submitReplyBtn');
+    const replyInfo = document.getElementById('replyInfo');
+    const replyText = document.getElementById('replyText');
+    let activeReplyTarget = null;
+
+    welcomeUser.textContent = currentUser;
+    currentStaffDisplay.textContent = currentStaff;
+    badStaffNameInput.value = currentStaff;
+    footerBadStaff.textContent = currentStaff;
+
+    // Save all data
+    function saveAll() {
+        localStorage.setItem(REPORTS_KEY, JSON.stringify(reports));
+        localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+        localStorage.setItem(STAFF_NAME_KEY, currentStaff);
+        localStorage.setItem(ACTIVE_CHAT_KEY, JSON.stringify(selectedChat));
+        updateUI();
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+        if (!text) return '';
+        return String(text).replace(/[&<>"']/g, function(m) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+    }
+
+    // Format time
+    function formatTime(timestamp) {
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Boss selection
+    function selectBoss(boss) {
+        selectedChat = { type: 'boss', id: boss };
+        [bossHr, bossSupervisor, bossChief].forEach(el => el.classList.remove('selected'));
+        if (boss === 'hr') bossHr.classList.add('selected');
+        else if (boss === 'supervisor') bossSupervisor.classList.add('selected');
+        else if (boss === 'chief') bossChief.classList.add('selected');
+        saveAll();
+    }
+
+    bossHr.addEventListener('click', () => selectBoss('hr'));
+    bossSupervisor.addEventListener('click', () => selectBoss('supervisor'));
+    bossChief.addEventListener('click', () => selectBoss('chief'));
+
+    // Select report
+    window.selectReport = function(reportId) {
+        selectedChat = { type: 'report', id: reportId };
+        saveAll();
+    };
+
+    // Open reply modal
+    window.openReplyModal = function(type, id, author, text) {
+        activeReplyTarget = { type, id, author, text };
+        replyInfo.innerHTML = `<strong>${escapeHtml(author)}:</strong> ${escapeHtml(text)}`;
+        replyText.value = '';
+        replyModal.classList.add('show');
+        replyText.focus();
+    };
+
+    // Close modal with ESC
+    function closeModal() {
+        replyModal.classList.remove('show');
+        activeReplyTarget = null;
+    }
+
+    closeReplyModal.addEventListener('click', closeModal);
+    cancelReplyBtn.addEventListener('click', closeModal);
+
+    // ESC key to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && replyModal.classList.contains('show')) {
+            e.preventDefault();
+            closeModal();
+        }
+    });
+
+    // Ctrl+Enter in modal
+    replyText.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            submitReplyBtn.click();
+        }
+    });
+
+    // Submit reply
+    submitReplyBtn.addEventListener('click', () => {
+        if (!activeReplyTarget || !replyText.value.trim()) return;
+
+        if (activeReplyTarget.type === 'report') {
+            const report = reports.find(r => r.id === activeReplyTarget.id);
+            if (report) {
+                if (!report.replies) report.replies = [];
+                report.replies.push({
+                    author: currentUser,
+                    text: replyText.value.trim(),
+                    timestamp: Date.now()
+                });
+            }
+        } else if (activeReplyTarget.type === 'message') {
+            const msg = messages.find(m => m.id === activeReplyTarget.id);
+            if (msg) {
+                // Add reply to the message
+                if (!msg.replies) msg.replies = [];
+                msg.replies.push({
+                    author: currentUser,
+                    text: replyText.value.trim(),
+                    timestamp: Date.now()
+                });
+                
+                // Also create a new message in the chat for visibility
+                messages.push({
+                    id: Date.now() + '-' + Math.random(),
+                    reportId: msg.reportId,
+                    boss: msg.boss,
+                    content: `↪️ Reply to "${activeReplyTarget.text}": ${replyText.value.trim()}`,
+                    sender: 'user',
+                    timestamp: Date.now(),
+                    read: false
+                });
+            }
+        }
+
+        saveAll();
+        closeModal();
+    });
+
+    // Render reports
+    function renderReports() {
+        let html = '';
+        reports.sort((a, b) => b.timestamp - a.timestamp).forEach(report => {
+            const isSelected = selectedChat.type === 'report' && selectedChat.id === report.id;
+            
+            let repliesHtml = '';
+            if (report.replies && report.replies.length > 0) {
+                repliesHtml = '<div class="reply-thread">';
+                report.replies.forEach((reply, index) => {
+                    repliesHtml += `
+                        <div class="reply-item">
+                            <div style="flex:1;">
+                                <span class="reply-author">${escapeHtml(reply.author)}:</span>
+                                <span class="reply-text">${escapeHtml(reply.text)}</span>
+                            </div>
+                            <span class="reply-time">${formatTime(reply.timestamp)}</span>
+                            <div class="reply-actions">
+                                <button class="reply-action-btn" onclick="event.stopPropagation(); window.openReplyModal('report', '${report.id}', '${escapeHtml(reply.author)}', '${escapeHtml(reply.text)}')">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                repliesHtml += '</div>';
+            }
+
+            html += `
+                <div class="report-entry ${isSelected ? 'selected' : ''}" onclick="window.selectReport('${report.id}')">
+                    <div class="report-header">
+                        <span class="reporter">${escapeHtml(report.reporter)}</span>
+                        <span style="color:#999; font-size:0.8rem;">${new Date(report.timestamp).toLocaleDateString()}</span>
+                    </div>
+                    <div class="bad-staff-name">${escapeHtml(report.staffName)}</div>
+                    <div class="report-desc">${escapeHtml(report.description)}</div>
+                    ${repliesHtml}
+                    <div style="margin-top:10px; display:flex; gap:5px; justify-content:flex-end;">
+                        <button class="btn" style="padding:0.3rem 1rem; font-size:0.8rem;" onclick="event.stopPropagation(); window.openReplyModal('report', '${report.id}', 'Report', '${escapeHtml(report.description)}')">
+                            <i class="fas fa-reply"></i> Reply
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+        timelineDiv.innerHTML = html || '<div style="padding:1rem; text-align:center;">No reports</div>';
+        reportCountSpan.textContent = reports.length;
+    }
+
+    // Render chat messages
+    function renderChat() {
+        let filteredMessages = [];
+        let title = 'Chat';
+        let topic = 'Select a conversation';
+
+        if (selectedChat.type === 'report') {
+            const report = reports.find(r => r.id === selectedChat.id);
+            if (report) {
+                title = `Report by ${report.reporter}`;
+                topic = `${report.reporter}: ${report.description}`;
+                filteredMessages = messages.filter(m => m.reportId === selectedChat.id);
+            }
+        } else if (selectedChat.type === 'boss') {
+            const bossNames = { hr: 'Megan (HR)', supervisor: 'Derek', chief: 'Lisa' };
+            title = `Chat with ${bossNames[selectedChat.id]}`;
+            topic = `Conversation with ${bossNames[selectedChat.id]}`;
+            filteredMessages = messages.filter(m => m.boss === selectedChat.id);
+        }
+
+        chatTitle.textContent = title;
+        conversationTopic.textContent = topic;
+
+        let html = `
+            <div class="encryption-banner">
+                <i class="fas fa-lock"></i> End-to-end encrypted
+            </div>
+            <div class="date-separator"><span>TODAY</span></div>
+        `;
+
+        filteredMessages.sort((a, b) => a.timestamp - b.timestamp).forEach(msg => {
+            const isFromUser = msg.sender === 'user';
+            const wrapperClass = isFromUser ? 'user-message' : 'boss-message';
+            const sender = isFromUser ? 'You' : 'Boss';
+            const content = msg.content;
+            
+            html += `
+                <div class="message-wrapper ${wrapperClass}">
+                    <div class="message-bubble" onclick="window.openReplyModal('message', '${msg.id}', '${sender}', '${escapeHtml(content)}')">
+                        ${!isFromUser ? '<div class="message-sender">Boss</div>' : ''}
+                        <div>${escapeHtml(content)}</div>
+                        <div class="message-time">
+                            ${formatTime(msg.timestamp)}
+                            ${isFromUser && msg.read ? ' ✓✓' : (isFromUser ? ' ✓' : '')}
+                        </div>
+                        <div class="message-actions" onclick="event.stopPropagation();">
+                            <button class="action-btn" onclick="window.openReplyModal('message', '${msg.id}', '${sender}', '${escapeHtml(content)}')">
+                                <i class="fas fa-reply"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        chatDiv.innerHTML = html;
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    // Send message
+    function sendMessage() {
+        const content = messageInput.value.trim();
+        if (!content) return;
+
+        const newMsg = {
+            id: Date.now() + '-' + Math.random(),
+            reportId: selectedChat.type === 'report' ? selectedChat.id : null,
+            boss: selectedChat.type === 'boss' ? selectedChat.id : 'hr',
+            content: content,
+            sender: 'user',
+            timestamp: Date.now(),
+            read: false
+        };
+        messages.push(newMsg);
+        messageInput.value = '';
+        saveAll();
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Rename staff
+    renameBtn.addEventListener('click', () => {
+        const newName = prompt('Enter new name:', currentStaff);
+        if (newName) {
+            currentStaff = newName;
+            currentStaffDisplay.textContent = currentStaff;
+            badStaffNameInput.value = currentStaff;
+            footerBadStaff.textContent = currentStaff;
+            reports = reports.map(r => ({ ...r, staffName: currentStaff }));
+            saveAll();
+        }
+    });
+
+    resetBtn.addEventListener('click', () => {
+        currentStaff = 'Gary Grump';
+        currentStaffDisplay.textContent = currentStaff;
+        badStaffNameInput.value = currentStaff;
+        footerBadStaff.textContent = currentStaff;
+        reports = reports.map(r => ({ ...r, staffName: currentStaff }));
+        saveAll();
+    });
+
+    // New report
+    reportForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newReport = {
+            id: Date.now() + '-' + Math.random(),
+            reporter: reporterName.value.trim() || 'Anonymous',
+            staffName: currentStaff,
+            category: reportCategory.value,
+            description: reportDesc.value.trim(),
+            timestamp: Date.now(),
+            replies: []
+        };
+        reports.push(newReport);
+        reportDesc.value = '';
+        saveAll();
+    });
+
+    // Update stats
+    function updateStats() {
+        storageStats.textContent = `${reports.length} reports, ${messages.length} messages`;
+        const broadcasts = messages.filter(m => m.sender === 'broadcast');
+        if (broadcasts.length > 0) {
+            const latest = broadcasts[broadcasts.length - 1];
+            broadcastIndicator.innerHTML = `📢 ${escapeHtml(latest.content.substring(0,30))}...`;
+        } else {
+            broadcastIndicator.innerHTML = '';
+        }
+    }
+
+    // Update UI
+    function updateUI() {
+        renderReports();
+        renderChat();
+        updateStats();
+        
+        // Update boss selection UI
+        if (selectedChat.type === 'boss') {
+            [bossHr, bossSupervisor, bossChief].forEach(el => el.classList.remove('selected'));
+            if (selectedChat.id === 'hr') bossHr.classList.add('selected');
+            else if (selectedChat.id === 'supervisor') bossSupervisor.classList.add('selected');
+            else if (selectedChat.id === 'chief') bossChief.classList.add('selected');
+        }
+    }
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('staffwatch_session');
+        localStorage.removeItem('staffwatch_user_role');
+        window.location.href = 'login.html';
+    });
+
+    // Storage sync
+    window.addEventListener('storage', (e) => {
+        if (e.key === REPORTS_KEY || e.key === MESSAGES_KEY || e.key === ACTIVE_CHAT_KEY) {
+            reports = JSON.parse(localStorage.getItem(REPORTS_KEY)) || reports;
+            messages = JSON.parse(localStorage.getItem(MESSAGES_KEY)) || messages;
+            selectedChat = JSON.parse(localStorage.getItem(ACTIVE_CHAT_KEY)) || selectedChat;
+            updateUI();
+        }
+    });
+
+    // Initialize
+    updateUI();
+})();
+</script>
+</body>
+</html>
