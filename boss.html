@@ -511,16 +511,16 @@
 <div class="boss-panel">
     <div class="top-bar">
         <div class="staff-controls">
-            <span class="staff-badge"><i class="fas fa-crown"></i> BOSS DASHBOARD</span>
+            <span class="staff-badge"><i class="fas fa-crown"></i> <span data-i18n="bossDashboard">BOSS DASHBOARD</span></span>
             <span class="username"><i class="fas fa-user-tie"></i> <span id="bossNameDisplay">Megan Jones</span> <span class="online-indicator"></span></span>
         </div>
         <div class="user-section">
-            <button class="staff-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> logout</button>
-            <button class="staff-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i> refresh</button>
+            <button class="staff-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">logout</span></button>
+            <button class="staff-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i> <span data-i18n="refresh">refresh</span></button>
             <div class="lang-switcher">
-                <button class="lang-btn active">EN</button>
-                <button class="lang-btn">PT</button>
-                <button class="lang-btn">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="pt">PT</button>
+                <button class="lang-btn" data-lang="es">ES</button>
             </div>
         </div>
     </div>
@@ -529,7 +529,7 @@
         <!-- LEFT: Reports -->
         <div class="col">
             <div class="card">
-                <div class="card-header"><i class="fas fa-list"></i> Staff Reports <span style="margin-left:auto; font-size:0.8rem; background:#ffefef; padding:0.2rem 0.8rem; border-radius:30px;" id="reportCount">0</span></div>
+                <div class="card-header"><i class="fas fa-list"></i> <span data-i18n="staffReports">Staff Reports</span> <span style="margin-left:auto; font-size:0.8rem; background:#ffefef; padding:0.2rem 0.8rem; border-radius:30px;" id="reportCount">0</span></div>
                 <div id="globalTimeline" class="timeline"></div>
             </div>
         </div>
@@ -538,31 +538,31 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <i class="fas fa-comments"></i> <span id="currentChatTitle">Conversation</span>
+                    <i class="fas fa-comments"></i> <span id="currentChatTitle" data-i18n="conversation">Conversation</span>
                 </div>
                 
                 <!-- Conversation title/topic -->
                 <div id="conversationTopic" class="conversation-title">
-                    General Discussion
+                    <span data-i18n="generalDiscussion">General Discussion</span>
                 </div>
                 
                 <div id="bossMessageThread" class="chat-container"></div>
                 
                 <div style="margin-top:1rem;">
                     <select id="bossSelect" class="form-control" style="margin-bottom:0.5rem;">
-                        <option value="hr">Megan (HR)</option>
-                        <option value="supervisor">Derek</option>
-                        <option value="chief">Lisa</option>
+                        <option value="hr" data-i18n="meganHR">Megan (HR)</option>
+                        <option value="supervisor" data-i18n="derek">Derek</option>
+                        <option value="chief" data-i18n="lisa">Lisa</option>
                     </select>
                     
                     <div class="chat-input-area">
-                        <textarea id="messageInput" rows="1" placeholder="Type a message..."></textarea>
+                        <textarea id="messageInput" rows="1" placeholder="Type a message..." data-i18n-placeholder="typeMessage"></textarea>
                         <div class="chat-input-actions">
                             <button id="sendMessageBtn" title="Send (Ctrl+Enter)"><i class="fas fa-paper-plane"></i></button>
                         </div>
                     </div>
                     <div class="shortcut-hint">
-                        <i class="fas fa-keyboard"></i> Ctrl+Enter to send
+                        <i class="fas fa-keyboard"></i> <span data-i18n="ctrlEnterSend">Ctrl+Enter to send</span>
                     </div>
                 </div>
             </div>
@@ -571,26 +571,26 @@
         <!-- RIGHT: Stats -->
         <div class="col">
             <div class="card">
-                <div class="card-header"><i class="fas fa-database"></i> Stats</div>
+                <div class="card-header"><i class="fas fa-database"></i> <span data-i18n="stats">Stats</span></div>
                 <div id="stats" style="line-height: 2;">
-                    Reports: 0<br>
-                    Messages: 0<br>
-                    Bad staff: <span id="badStaffDisplay">Gary Grump</span>
+                    <span data-i18n="reports">Reports</span>: 0<br>
+                    <span data-i18n="messages">Messages</span>: 0<br>
+                    <span data-i18n="badStaff">Bad staff</span>: <span id="badStaffDisplay">Gary Grump</span>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header"><i class="fas fa-gavel"></i> Tools</div>
+                <div class="card-header"><i class="fas fa-gavel"></i> <span data-i18n="tools">Tools</span></div>
                 <div class="form-group">
-                    <label>Rename bad staff</label>
+                    <label data-i18n="renameBadStaff">Rename bad staff</label>
                     <div style="display: flex; gap: 5px;">
-                        <input type="text" id="newStaffName" class="form-control" placeholder="new name...">
-                        <button class="btn btn-primary" id="renameStaffBtn" style="width: auto;">rename</button>
+                        <input type="text" id="newStaffName" class="form-control" placeholder="new name..." data-i18n-placeholder="newName">
+                        <button class="btn btn-primary" id="renameStaffBtn" style="width: auto;"><span data-i18n="rename">rename</span></button>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Broadcast</label>
+                    <label data-i18n="broadcast">Broadcast</label>
                     <div style="display: flex; gap: 5px;">
-                        <textarea id="broadcastMsg" class="form-control" rows="1" placeholder="announcement..."></textarea>
+                        <textarea id="broadcastMsg" class="form-control" rows="1" placeholder="announcement..." data-i18n-placeholder="announcement"></textarea>
                         <button class="btn btn-success" id="broadcastBtn" style="width: auto;"><i class="fas fa-bullhorn"></i></button>
                     </div>
                 </div>
@@ -599,8 +599,8 @@
     </div>
 
     <div class="footer-stats">
-        <span><i class="fas fa-flag"></i> <span id="footerReports">0 reports</span></span>
-        <span><i class="fas fa-envelope"></i> <span id="footerMessages">0 messages</span></span>
+        <span><i class="fas fa-flag"></i> <span id="footerReports">0</span> <span data-i18n="reports">reports</span></span>
+        <span><i class="fas fa-envelope"></i> <span id="footerMessages">0</span> <span data-i18n="messages">messages</span></span>
         <span><i class="fas fa-user-secret"></i> <span id="footerBadStaff">Gary</span></span>
     </div>
 </div>
@@ -609,25 +609,124 @@
 <div id="replyModal" class="modal">
     <div class="modal-card">
         <div class="modal-header">
-            <i class="fas fa-reply" style="color:#00a884;"></i> Reply
+            <i class="fas fa-reply" style="color:#00a884;"></i> <span data-i18n="reply">Reply</span>
             <button class="modal-close" id="closeReplyModal">&times;</button>
         </div>
         <div class="modal-body">
             <div id="replyInfo" style="background:#f0f2f5; padding:0.8rem; border-radius:12px; margin-bottom:1rem; font-size:0.85rem; border-left:4px solid #00a884;"></div>
-            <textarea id="replyText" class="form-control" rows="3" placeholder="Your reply..." autofocus></textarea>
+            <textarea id="replyText" class="form-control" rows="3" placeholder="Your reply..." data-i18n-placeholder="yourReply" autofocus></textarea>
             <div class="shortcut-hint-modal">
-                <i class="fas fa-keyboard"></i> Ctrl+Enter to send · Esc to close
+                <i class="fas fa-keyboard"></i> <span data-i18n="ctrlEnterSend">Ctrl+Enter to send</span> · <span data-i18n="escToClose">Esc to close</span>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="modal-btn modal-btn-secondary" id="cancelReplyBtn">Cancel (Esc)</button>
-            <button class="modal-btn modal-btn-primary" id="submitReplyBtn">Send (Ctrl+Enter)</button>
+            <button class="modal-btn modal-btn-secondary" id="cancelReplyBtn"><span data-i18n="cancel">Cancel</span> (Esc)</button>
+            <button class="modal-btn modal-btn-primary" id="submitReplyBtn"><span data-i18n="send">Send</span> (Ctrl+Enter)</button>
         </div>
     </div>
 </div>
 
 <script>
 (function() {
+    // ========== TRANSLATIONS ==========
+    const lang = {
+        en: {
+            bossDashboard: "BOSS DASHBOARD",
+            logout: "logout",
+            refresh: "refresh",
+            staffReports: "Staff Reports",
+            conversation: "Conversation",
+            generalDiscussion: "General Discussion",
+            meganHR: "Megan (HR)",
+            derek: "Derek",
+            lisa: "Lisa",
+            typeMessage: "Type a message...",
+            ctrlEnterSend: "Ctrl+Enter to send",
+            stats: "Stats",
+            reports: "Reports",
+            messages: "Messages",
+            badStaff: "Bad staff",
+            tools: "Tools",
+            renameBadStaff: "Rename bad staff",
+            newName: "new name...",
+            rename: "rename",
+            broadcast: "Broadcast",
+            announcement: "announcement...",
+            reply: "Reply",
+            yourReply: "Your reply...",
+            escToClose: "Esc to close",
+            cancel: "Cancel",
+            send: "Send",
+            today: "TODAY",
+            endToEndEncrypted: "End-to-end encrypted",
+            replyTo: "Reply to"
+        },
+        pt: {
+            bossDashboard: "PAINEL DO CHEFE",
+            logout: "sair",
+            refresh: "atualizar",
+            staffReports: "Relatórios da Equipe",
+            conversation: "Conversa",
+            generalDiscussion: "Discussão Geral",
+            meganHR: "Megan (RH)",
+            derek: "Derek",
+            lisa: "Lisa",
+            typeMessage: "Digite uma mensagem...",
+            ctrlEnterSend: "Ctrl+Enter para enviar",
+            stats: "Estatísticas",
+            reports: "Relatórios",
+            messages: "Mensagens",
+            badStaff: "Funcionário ruim",
+            tools: "Ferramentas",
+            renameBadStaff: "Renomear funcionário ruim",
+            newName: "novo nome...",
+            rename: "renomear",
+            broadcast: "Transmissão",
+            announcement: "anúncio...",
+            reply: "Responder",
+            yourReply: "Sua resposta...",
+            escToClose: "Esc para fechar",
+            cancel: "Cancelar",
+            send: "Enviar",
+            today: "HOJE",
+            endToEndEncrypted: "Criptografia de ponta a ponta",
+            replyTo: "Responder a"
+        },
+        es: {
+            bossDashboard: "PANEL DEL JEFE",
+            logout: "salir",
+            refresh: "actualizar",
+            staffReports: "Informes del Personal",
+            conversation: "Conversación",
+            generalDiscussion: "Discusión General",
+            meganHR: "Megan (RRHH)",
+            derek: "Derek",
+            lisa: "Lisa",
+            typeMessage: "Escribe un mensaje...",
+            ctrlEnterSend: "Ctrl+Enter para enviar",
+            stats: "Estadísticas",
+            reports: "Informes",
+            messages: "Mensajes",
+            badStaff: "Mal empleado",
+            tools: "Herramientas",
+            renameBadStaff: "Renombrar mal empleado",
+            newName: "nuevo nombre...",
+            rename: "renombrar",
+            broadcast: "Transmisión",
+            announcement: "anuncio...",
+            reply: "Responder",
+            yourReply: "Tu respuesta...",
+            escToClose: "Esc para cerrar",
+            cancel: "Cancelar",
+            send: "Enviar",
+            today: "HOY",
+            endToEndEncrypted: "Cifrado de extremo a extremo",
+            replyTo: "Responder a"
+        }
+    };
+
+    let currentLang = 'en';
+
     // Check login
     const currentUser = localStorage.getItem('staffwatch_session');
     const userRole = localStorage.getItem('staffwatch_user_role');
@@ -698,6 +797,9 @@
     const broadcastBtn = document.getElementById('broadcastBtn');
     const broadcastMsg = document.getElementById('broadcastMsg');
 
+    // Language buttons
+    const langBtns = document.querySelectorAll('.lang-btn');
+
     // Modal elements
     const replyModal = document.getElementById('replyModal');
     const closeReplyModal = document.getElementById('closeReplyModal');
@@ -706,6 +808,32 @@
     const replyInfo = document.getElementById('replyInfo');
     const replyText = document.getElementById('replyText');
     let activeReplyTarget = null;
+
+    // Set language
+    function setLanguage(langCode) {
+        currentLang = langCode;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (lang[langCode][key]) {
+                el.textContent = lang[langCode][key];
+            }
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (lang[langCode][key]) {
+                el.placeholder = lang[langCode][key];
+            }
+        });
+        langBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === langCode);
+        });
+        // Re-render with new language
+        renderChat();
+    }
+
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+    });
 
     // Save all data
     function saveAll() {
@@ -769,7 +897,7 @@
                     ${repliesHtml}
                     <div style="margin-top:10px; display:flex; gap:5px; justify-content:flex-end;">
                         <button class="btn" style="padding:0.3rem 1rem; font-size:0.8rem;" onclick="event.stopPropagation(); window.openReplyModal('report', '${report.id}', 'Report', '${escapeHtml(report.description)}')">
-                            <i class="fas fa-reply"></i> Reply
+                            <i class="fas fa-reply"></i> ${lang[currentLang].reply}
                         </button>
                     </div>
                 </div>
@@ -782,20 +910,20 @@
     // Render chat messages
     function renderChat() {
         let filteredMessages = [];
-        let title = 'All Conversations';
-        let topic = 'General Discussion';
+        let title = lang[currentLang].conversation;
+        let topic = lang[currentLang].generalDiscussion;
 
         if (selectedChat.type === 'report') {
             const report = reports.find(r => r.id === selectedChat.id);
             if (report) {
-                title = `Report by ${report.reporter}`;
+                title = `${lang[currentLang].replyTo} ${report.reporter}`;
                 topic = `${report.reporter}: ${report.description}`;
                 filteredMessages = messages.filter(m => m.reportId === selectedChat.id);
             }
         } else if (selectedChat.type === 'boss') {
-            const bossNames = { hr: 'Megan (HR)', supervisor: 'Derek', chief: 'Lisa' };
-            title = `Chat with ${bossNames[selectedChat.id]}`;
-            topic = `Conversation with ${bossNames[selectedChat.id]}`;
+            const bossNames = { hr: lang[currentLang].meganHR, supervisor: lang[currentLang].derek, chief: lang[currentLang].lisa };
+            title = `${lang[currentLang].replyTo} ${bossNames[selectedChat.id]}`;
+            topic = `${lang[currentLang].conversation} ${bossNames[selectedChat.id]}`;
             filteredMessages = messages.filter(m => m.boss === selectedChat.id);
         }
 
@@ -804,28 +932,28 @@
 
         let html = `
             <div class="encryption-banner">
-                <i class="fas fa-lock"></i> End-to-end encrypted
+                <i class="fas fa-lock"></i> ${lang[currentLang].endToEndEncrypted}
             </div>
-            <div class="date-separator"><span>TODAY</span></div>
+            <div class="date-separator"><span>${lang[currentLang].today}</span></div>
         `;
 
         filteredMessages.sort((a, b) => a.timestamp - b.timestamp).forEach(msg => {
             const isFromUser = msg.sender === 'user';
             const wrapperClass = isFromUser ? 'user-message' : 'boss-message';
-            const sender = isFromUser ? msg.sender : 'Boss';
+            const sender = isFromUser ? msg.sender : lang[currentLang].boss;
             const content = msg.content;
             
             html += `
                 <div class="message-wrapper ${wrapperClass}">
-                    <div class="message-bubble" onclick="window.openReplyModal('message', '${msg.id}', '${sender === 'user' ? 'User' : 'Boss'}', '${escapeHtml(content)}')">
-                        ${!isFromUser ? '<div class="message-sender">Boss</div>' : ''}
+                    <div class="message-bubble" onclick="window.openReplyModal('message', '${msg.id}', '${sender === 'user' ? 'User' : lang[currentLang].boss}', '${escapeHtml(content)}')">
+                        ${!isFromUser ? `<div class="message-sender">${lang[currentLang].boss}</div>` : ''}
                         <div>${escapeHtml(content)}</div>
                         <div class="message-time">
                             ${formatTime(msg.timestamp)}
                             ${!isFromUser && msg.read ? ' ✓✓' : (!isFromUser ? ' ✓' : '')}
                         </div>
                         <div class="message-actions" onclick="event.stopPropagation();">
-                            <button class="action-btn" onclick="window.openReplyModal('message', '${msg.id}', '${sender === 'user' ? 'User' : 'Boss'}', '${escapeHtml(content)}')">
+                            <button class="action-btn" onclick="window.openReplyModal('message', '${msg.id}', '${sender === 'user' ? 'User' : lang[currentLang].boss}', '${escapeHtml(content)}')">
                                 <i class="fas fa-reply"></i>
                             </button>
                         </div>
@@ -887,7 +1015,7 @@
             if (report) {
                 if (!report.replies) report.replies = [];
                 report.replies.push({
-                    author: 'Boss',
+                    author: lang[currentLang].boss,
                     text: replyText.value.trim(),
                     timestamp: Date.now()
                 });
@@ -898,7 +1026,7 @@
                 // Add reply to the message
                 if (!msg.replies) msg.replies = [];
                 msg.replies.push({
-                    author: 'Boss',
+                    author: lang[currentLang].boss,
                     text: replyText.value.trim(),
                     timestamp: Date.now()
                 });
@@ -908,7 +1036,7 @@
                     id: Date.now() + '-' + Math.random(),
                     reportId: msg.reportId,
                     boss: msg.boss,
-                    content: `↪️ Reply to "${activeReplyTarget.text}": ${replyText.value.trim()}`,
+                    content: `↪️ ${lang[currentLang].replyTo} "${activeReplyTarget.text}": ${replyText.value.trim()}`,
                     sender: 'boss',
                     timestamp: Date.now(),
                     read: false
@@ -987,13 +1115,13 @@
         const messageCount = messages.length;
         
         statsDiv.innerHTML = `
-            Reports: ${reportCount}<br>
-            Messages: ${messageCount}<br>
-            Bad staff: ${currentStaff}
+            ${lang[currentLang].reports}: ${reportCount}<br>
+            ${lang[currentLang].messages}: ${messageCount}<br>
+            ${lang[currentLang].badStaff}: ${currentStaff}
         `;
         
-        footerReports.textContent = reportCount + ' reports';
-        footerMessages.textContent = messageCount + ' messages';
+        footerReports.textContent = reportCount;
+        footerMessages.textContent = messageCount;
         footerBadStaff.textContent = currentStaff;
         badStaffDisplay.textContent = currentStaff;
     }
@@ -1031,7 +1159,8 @@
         }
     });
 
-    // Initialize
+    // Initialize with English
+    setLanguage('en');
     updateUI();
 })();
 </script>
